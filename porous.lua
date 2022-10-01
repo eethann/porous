@@ -31,7 +31,7 @@
 -- field recording workshop
 -- at Luck Dragon, 2022-09
 -- thanks @danderks and
--- @jaceknighter
+-- @jaseknighter
 
 Lattice = require ("lattice")
 local grid = util.file_exists(_path.code.."midigrid") and include "midigrid/lib/mg_128" or grid

@@ -1,6 +1,6 @@
 Porous_passthrough {
 
-	// An adaption of dan derks and jaceknighter's Habitus passthrough app
+	// An adaption of dan derks and jaseknighter's Habitus passthrough app
 	// supports independent stereo control of passthrough for stereo gating
 
 	var <passthrough;
