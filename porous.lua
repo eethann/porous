@@ -145,10 +145,6 @@ function add_params()
       '', -- string for units
       0.005 -- adjustment quantization
     ) --,
-    -- params UI formatter:
-    -- function(param)
-    --   return strip_trailing_zeroes(param:get()*100)..'%'
-    -- end
   )
   params:set_action("porous_amp_min", function(val) generate_amp_windows(val, params:get("porous_amp_max")) end)
   params:set_action("porous_amp_max", function(val) generate_amp_windows(params:get("porous_amp_min"), val) end)
@@ -160,9 +156,35 @@ function add_params()
   min = 0, max = 1720, default = 44, action=function(val) generate_pitch_windows(val, params:get("porous_pitch_max")) end}
   params:add{type = "taper", id = "porous_pitch_max", name = "max pitch",
   min = 0, max = 1720, default = 880, action=function(val) generate_pitch_windows(params:get("porous_pitch_min"), val) end}
-  -- low/hi for amp
-  -- low/hi for pitch
-  -- scale for quantization
+  params:add_control(
+    'porous_slew_time_up', -- ID
+    'open time',
+    controlspec.new(
+      0, -- min
+      1, -- max
+      'lin', -- warp
+      0.01, -- output quantization
+      0.1, -- default value
+      '', -- string for units
+      0.01 -- adjustment quantization
+    ) --,
+  )
+  params:add_control(
+    'porous_slew_time_down', -- ID
+    'close time',
+    controlspec.new(
+      0, -- min
+      1, -- max
+      'lin', -- warp
+      0.01, -- output quantization
+      0.1, -- default value
+      '', -- string for units
+      0.01 -- adjustment quantization
+    ) --,
+  )
+  params:set_action("porous_slew_time_up", function(val) engine.slew_time_up(val) end)
+  params:set_action("porous_slew_time_down", function(val) engine.slew_time_down(val) end)
+  -- TODO scale for quantization
 end
 
 function generate_pitch_windows(min, max)

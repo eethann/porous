@@ -15,12 +15,17 @@ Porous_passthrough {
 
 				SynthDef(\porousPassthrough, {
 					arg amp1 = 1,
-					amp2 = 1;
+					amp2 = 1,
+					slew_time_up = 0.1,
+					slew_time_down = 0.1;
 					var sound;
+					var slew_amp1, slew_amp2;
 					// TODO declick
 					sound = SoundIn.ar([0,1]);
+					slew_amp1 = Slew.kr(amp1, slew_time_up.reciprocal, slew_time_down.reciprocal);
+					slew_amp2 = Slew.kr(amp2, slew_time_up.reciprocal, slew_time_down.reciprocal);
 					// ReplaceOut.ar(0, [sound[0] * amp1, sound[1] * amp2]);
-					Out.ar(0, sound.madd([amp1, amp2]));
+					Out.ar(0, sound.madd([slew_amp1, slew_amp2]));
 				}).add;
 
 			} // s.waitForBoot
@@ -50,6 +55,14 @@ Porous_passthrough {
 
 	setAmp2 { arg amp;
 		passthrough.set(\amp2, amp);
+	}
+
+	setSlewTimeUp { arg slew_up;
+		passthrough.set(\slew_time_up, slew_up)
+	}
+
+	setSlewTimeDown { arg slew_down;
+		passthrough.set(\slew_time_down, slew_down)
 	}
 
 	// IMPORTANT!

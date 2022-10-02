@@ -18,6 +18,16 @@ Engine_Porous : CroneEngine {
 			kernel.setAmp2(amp2);
 		});
 
+		this.addCommand(\slew_time_up, "f", { arg msg;
+			var slew_time = msg[1].asFloat;
+			kernel.setSlewTimeUp(slew_time);
+		});
+
+		this.addCommand(\slew_time_down, "f", { arg msg;
+			var slew_time = msg[1].asFloat;
+			kernel.setSlewTimeDown(slew_time);
+		});
+
 		// debugPrinter = { loop { [context.server.peakCPU, context.server.avgCPU].postln; 3.wait; } }.fork;
 	}
 
